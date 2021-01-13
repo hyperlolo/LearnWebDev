@@ -48,6 +48,8 @@ def comp():
 def user():
     #Makes sure global variable is beign changed, and takes input and converts input to int
     global user_c
+    global c_score
+    global u_score
     user_c = int(input("Hello, please enter your input for Rock(1) Paper(2) Scissors(3): "))
     #uses switch statement to check as roll
     u_roll = choice[user_c]()
@@ -58,6 +60,8 @@ def game_logic():
     #calls globals c_score and u_score to update them to see who wins best out of 5
     global c_score
     global u_score
+    cur_score = "\nThe current score is as follows:\nThe Computer: {comp}\t The User: {use}\n"
+    print(cur_score.format(comp = c_score, use = u_score))
     
     if user_c == comp_c:
         print("It's a tie!\nResult: No one gets a point!")
@@ -79,6 +83,15 @@ def winner():
     global u_score
     global game_active
     
+    if c_score >= 3:
+        print("\nThe Computer won the game best out of 5!")
+        game_active = False
+    elif u_score >= 3:
+        print("\nThe User won the game best out of 5!")
+        game_active = False
+    else:
+        return
+    
     
 
     #these were cut out due to the results being the same in accordance to the conditions
@@ -99,11 +112,18 @@ def game():
     #calls global variable to check if game is still active
     global game_active
     global game_c
-    
-    while game is True:
+    global c_score
+    global u_score    
+    while game_active is True:
         game_c += 1
+        cur_score = "---------------------------------------------------------------------\n\nThe current score is as follows:\nThe Computer: {comp}\t The User: {use}\n"
+        print(cur_score.format(comp = c_score, use = u_score))
         user()
         comp()
         game_logic()
         winner()
+    end_msg = "\nThat game lasted {games} rounds!"
+    print(end_msg.format(games = game_c))
+    
+game()
     
